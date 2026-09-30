@@ -1,0 +1,40 @@
+{
+  "manifest_version": 3,
+  "name": "TW SOP Assist Chrome Extension",
+  "version": "1.0.2",
+  "description": "Deployed: 13th May 2026",
+  "key": "0/zn25z605p+BFIFo0kzxR309oLbTK94D01Y5fdsiAmBrwKUuGhL9DfKLhehNtL3GXmHb2xZhsmtuhvFJwh0Qd5twzGuYi75SMvyWy0Y6ZoRmHf33e8ZCxIZiUkmYUbhyYPIbw5fvw5YsFrxdlV/5rS/74QnWPNaiQ46pfzNFBdEKNqfaZZXz5Aj+Zzxyz5vTG/JJhCC7MWqG/CQl+f/6BS7/KR8Qeqwbk7kRyu7CKfmtHRDYRoXzjl6HaxqZ9i11ND41f+6y5O5OIKbHk3vFoy2K+Fq07q/Fwsi2rZIBOVRdHIn5CP1XNJz27x/JH1Wk9GFBz3Mh7KbYokikQmrGQEAAQ==",
+  "host_permissions": [
+		"https://wnsakshay.github.io/*"
+	],
+	"permissions": [ "tabs" ],
+	"background": 
+	{
+		"service_worker": "service-worker.js"
+	},
+  "content_security_policy": 
+  {
+	  "script-src":  ["self"],
+	  "object-src" : ["self"]  
+  },
+  "icons": 
+	{ 
+		"16": "assets/icon.png",
+        "48": "assets/icon.png",
+        "128": "assets/icon.png"
+	},
+  "content_scripts": [
+    {
+      "js": [ "Data.js","functions.js", "BgColor.js" ], 
+	  
+	  "css": [ "akshay.css" ],
+
+      "matches": [ "https://cntr.one-line.com/*", "http://cntr.one-line.com/*" ],
+
+      "all_frames": true,
+
+      "run_at": "document_end"
+    }
+  ]
+}
+
