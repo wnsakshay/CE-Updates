@@ -1,0 +1,74 @@
+#btn_t1Danger, #btn_t1Reefer, #btn_t1ReferenceNo, #btn_t8ExportImportInfo, #btn_t8POOtherNo, #btn_t9AllConfirm, #btn_t9AllRelease, #btn_t10auto_rating, #rt_bl_tp_cd_text,
+#frt_term_cd_text, #select_vessel_direction_text, #select_pre_carriage_by_text, #frm_t11sheet1_por_name, #frm_t11sheet1_pol_name, #frm_t11sheet1_pod_name, #frm_t11sheet1_del_name,
+#frm_t11sheet1_final_dest, #bl_ready_type_text, #frm_t11sheet1_on_board_date, #date_set_checkbox, #frm_t11sheet1_bl_issue_date, #frm_t11sheet1_bl_issue_at, 
+#frm_t11sheet1_inet_ctrl_pty_nm, #frm_t11sheet1_inet_ctrl_pty_no, #frm_t11sheet1_inet_ctrl_pty_cust_nm, #btn_t1retrieve
+{
+	/*light orange*/
+	background-color: #FED8B1;
+	outline: 1px solid red !important;
+	/*#FFA54F";*/
+	
+	/*
+background-color: #EC7215;
+border-color: #0B44D6;
+border:2px solid white;
+font-Weight:bold;
+color:white;*/
+}
+
+#usa_cstms_file_cd_text, #cnd_cstms_file_cd_text
+{
+	background-color: #FED8B1 !important;
+	outline: 1px solid red !important;
+}
+
+#btn_t1retrieve, #btn_t6cntrconfirm
+{
+	/*regular orange*/
+	background-color: #FFA54F;
+	outline: 1px solid red !important;
+}
+
+
+input[name=cmdt_desc], input[name=cmdt_cd], input[name=bkg_ctrl_pty_cust_nm], input[name=bkg_ctrl_pty_cust_seq], input[name=bkg_ctrl_pty_cust_cnt_cd], input[name=bkg_sts_cd], 
+input[name=sh_cust_cnt_cd], input[name=sh_cust_seq], input[name=sh_cust_cty_nm], input[name=sh_cust_ste_cd], input[name=sh_cstms_decl_cnt_cd], input[name=sh_cust_zip_id],
+input[name=sh_eur_cstms_st_nm], input[name=cn_cust_cnt_cd], input[name=cn_cust_seq], input[name=cn_cust_cty_nm], input[name=cn_cust_ste_cd], input[name=cn_cstms_decl_cnt_cd],
+input[name=cn_cust_zip_id], input[name=cn_eur_cstms_st_nm], input[name=nf_cust_cnt_cd], input[name=nf_cust_seq], input[name=nf_cust_cty_nm], input[name=nf_cust_ste_cd],
+input[name=nf_cstms_decl_cnt_cd], input[name=nf_cust_zip_id], input[name=nf_eur_cstms_st_nm], input[name=ff_cust_cnt_cd], input[name=ff_cust_seq], input[name=ff_cust_lgl_eng_nm],
+input[name=an_cust_cnt_cd], input[name=an_cust_seq], input[name=pck_qty], input[name=pck_tp_cd], input[name=act_wgt], input[name=meas_qty], input[name=cstms_desc],
+input[name=cntr_wgt], input[name=shpr_cty_nm], input[name=shpr_ste_cd], input[name=shpr_cnt_cd], input[name=shpr_zip_cd], input[name=cnee_cty_nm], input[name=cnee_ste_cd],
+input[name=cnee_cnt_cd], input[name=cnee_zip_cd], input[name=noti_cty_nm], input[name=noti_ste_cd], input[name=noti_cnt_cd], input[name=noti_zip_cd], input[name=hbl_wgt],
+input[name=cmdt_meas_qty], input[name=hbl_no], input[name=cntr_mf_no], input[name=frt_term_cd_text], input[name=frm_t10sheet1_sc_no1], input[name=frm_t10sheet1_rfa_no],
+input[name=frm_p_t10sheet3_ofc_cd], input[name=frm_p_t10sheet3_cnt_cd], input[name=frm_p_t10sheet3_cust_seq], input[name=frm_c_t10sheet3_ofc_cd], input[name=frm_c_t10sheet3_cnt_cd], 
+input[name=frm_c_t10sheet3_cust_seq] 
+{
+	background-color: #FED8B1 !important;
+	outline: 1px solid red !important;
+}
+
+input[name=mk_desc_prn_flg]
+{
+	outline: 2px solid red !important;
+}
+
+input[name=sh_eori_no], input[name=cn_eori_no], input[name=nf_eori_no]
+{
+	/*light red*/
+	background-color: #FFCCCC !important;
+	outline: 1px solid red !important;
+}
+
+textarea[name=xter_rmk], textarea[name=inter_rmk], textarea[name=sh_cust_nm], textarea[name=sh_cust_addr], textarea[name=cn_cust_nm], textarea[name=cn_cust_addr],
+textarea[name=nf_cust_nm], textarea[name=nf_cust_addr], textarea[name=ff_cust_nm], textarea[name=an_cust_nm], textarea[name=ex_cust_nm], textarea[name=mk_desc],
+textarea[name=dg_cmdt_desc], textarea[name=shpr_nm], textarea[name=shpr_addr], textarea[name=cnee_nm], textarea[name=cnee_addr], textarea[name=noti_nm],
+textarea[name=noti_addr], textarea[name=bl_mk_desc], textarea[name=bl_gds_desc], textarea[name=frm_t11sheet1_obl_iss_rmk]
+{
+	background-color: #FED8B1 !important;
+	outline: 1px solid red !important;
+}
+
+select[name=frt_term_cd]
+{
+	background-color: #FED8B1 !important;
+	outline: 1px solid red !important;
+}

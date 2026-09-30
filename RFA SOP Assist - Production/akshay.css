@@ -1,0 +1,21 @@
+.sm{
+	background-color: #f4f699;
+	/*color: red;*/
+	border-style: dotted;
+	border-width: 2px;
+	border-color: red;
+}
+ .GMEllipsis .GMAlignCenter .GMHeaderText .IBSheetFont0 .GMCellHeader .IBSheetFont0 .HideCol0C10{
+	background-color: orange;
+ }
+
+#tab1_tabTitle_4
+{
+	background-color : yellow;
+}
+/*th{
+	background: #f4f699 !important;
+	color: red;
+	border-style: dotted;
+  border-width: 2px;
+}*/

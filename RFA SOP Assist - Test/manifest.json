@@ -1,0 +1,33 @@
+{
+	"manifest_version": 3,
+	"name": "RFA SOP Assist Extension!!!",
+	"version": "2.0.0",
+	"description": "This extension displays some critical RFA SOP Intructions",
+	"key": "uNvdw4mfwIy8IPawxg9JCddArWD2LjXncnNd+hleiWK2XcXZnrPzmpwkMYJlYR7k7HM0Wm0Mq2U1QYrzzRaVBJvWohj2MTacZyuxv5yvPGAiPKBByMYr2MlmARkS+H2n3iSmzc6HGese7OqF3TXPddGyOKoP/RlYAdd+11O/kzxpkwC+YwaVO2X2sZlb+FI8hUUVDHsxiXADjl3cmSxzUfKnM4SVhrEaSSgs8c+RTuVif8TolrssgDRaJwz4pEWFwii/MXMGnW6a2F6PMaxXQKtO/oJ84YbjvN5uJbBZ6n/N1YbnUrHI15LRJv0i5KHinxjZSjBqHS+vKEFCuzmdUQEAAQ==",
+	"permissions": [ "tabs" ],
+	"content_security_policy": 
+	{
+	  "script-src":  ["self"],
+	  "object-src" : ["self"]  
+	},
+	"icons": 
+	{ 
+		"16": "icon.png",
+		"48": "icon.png",
+		"128": "icon.png" 
+	},
+	"content_scripts": 
+	[
+		{
+			"js": [ "JQ.js", "Akshay.js", "functions.js",  "BgColor.js" ], 
+			"css": ["akshay.css"],
+			"matches": [ "https://cntr-test.one-line.com/*", "http://cntr-test.one-line.com/*" ],
+			/*	http://10.65.224.11/*	*/
+
+			"all_frames": true,
+
+			"run_at": "document_end"
+		}
+	]
+}
+
