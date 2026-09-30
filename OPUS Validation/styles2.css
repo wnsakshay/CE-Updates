@@ -1,0 +1,154 @@
+#btn_Email, #btn_BLPreview, #btn_t6gridmultishp, #btn_copy, #btn_t9AllConfirm, #btn_t10doc
+{
+background-color: #f1a9f3;
+border-color: #0B44D6;
+border:2px solid white;
+font-Weight:bold;
+color:white;
+}
+#ssheet1
+{
+	background-color: #EC7215;
+}
+
+/*
+#exID01
+{
+    -webkit-appearance: checkbox;
+    -moz-appearance: none;
+    height: 18px;
+    width: 16px;
+    border-style: solid;
+    border-color: #c00;
+    border-width: 2px;
+    outline: 2px solid #F00;
+}
+*/
+
+
+#ff_addr_prn_flg
+{
+ -webkit-appearance: checkbox;
+    -moz-appearance: none;
+    height: 18px;
+    width: 16px;
+    border-style: solid;
+    border-color: #c00;
+    border-width: 2px;
+ outline: 2px solid #F00;
+}
+
+
+#dg_cmdt_desc, #usa_cstms_file_cd_text, #cnd_cstms_file_cd_text, #cn_cust_seq, #cn_cust_cnt_cd, #nf_cust_cnt_cd,  #sh_cust_cty_nm, #btn_t6cntrconfirm
+{
+  outline: 2px solid #F00;
+}
+
+
+input[name=evnt_usr_id]
+{
+ outline: 2px solid #F00 !important;
+}
+
+input[name=evnt_dt]
+{
+ outline: 2px solid #F00 !important;
+}
+
+.GMEnumRight
+{
+  outline: 2px solid #F00 !important;
+}
+
+.GMEnumHeaderRight
+{
+ background-color: #EC7215 !important;
+border-color: #0B44D6 !important;
+border:2px solid white !important;
+font-Weight:bold !important;
+color:white !important;
+}
+
+.GMWrap0 GMAlignCenter GMEnum GMCell IBSheetFont1 HideCol1C13
+{
+  background-color: #EC7215 !important;
+border-color: #0B44D6 !important;
+border:2px solid white !important;
+font-Weight:bold !important;
+color:white !important;
+}
+.input1
+{
+    outline: 2px solid #F00;
+}
+
+
+#btn_t1Danger, #btn_t1Reefer, #sh_cust_seq, #cn_cust_seq, #mk_desc, #frm_t11sheet1_obl_iss_rmk, #btn_VarianceDtl, #nf_cust_seq, #sh_cust_ste_cd, 
+#sh_cstms_decl_cnt_cd, #sh_cust_zip_id, #sh_eur_cstms_st_nm, #cn_cust_cty_nm, 
+#cn_cstms_decl_cnt_cd, #cn_eur_cstms_st_nm, #cn_cust_ste_cd,  #cn_cust_zip_id,
+#nf_cust_cty_nm, #nf_eur_cstms_st_nm, #nf_cust_ste_cd, #nf_cstms_decl_cnt_cd, #nf_cust_zip_id, #ff_cust_cnt_cd, #ff_cust_seq, #an_cust_cnt_cd, #an_cust_seq,
+#frm_t11sheet1_bl_issue_at, #frm_t11sheet1_bl_issue_by, #frm_t11sheet1_bl_issue_no, #frm_t11sheet1_bl_issue_date, #frm_t11sheet1_bl_cpy_no, #frm_t11sheet1_bl_iss_tp_cd
+{
+ outline: 2px solid #F00;
+}
+
+
+textarea 
+{     
+ width: 100%; 
+}
+
+#ff_cust_nm
+{
+ width: 100%; 
+}
+
+#usa_cstms_file_cd_text, #cnd_cstms_file_cd_text, #bl_issuebl_type_text
+{
+outline: 2px solid #F00 !important;
+}
+
+/*
+#TOTAL_PPD, #TOTAL_CCT
+{
+ outline: 2px solid #F00;
+}
+*/
+input[name=frm_p_t10sheet3_ofc_cd] {    
+     outline: 2px solid #F00 !important; 
+}
+
+input[name=frm_p_t10sheet3_cnt_cd] {    
+     outline: 2px solid #F00 !important; 
+}
+input[name=frm_p_t10sheet3_cust_seq] {    
+     outline: 2px solid #F00 !important; 
+}
+/*
+input[name=frm_c_t10sheet3_ofc_cd] {    
+     outline: 2px solid #F00 !important; 
+}
+input[name=frm_c_t10sheet3_cnt_cd] {    
+     outline: 2px solid #F00 !important; 
+}
+input[name=frm_c_t10sheet3_cust_seq] {    
+     outline: 2px solid #F00 !important; 
+}
+*/
+
+/*
+input[name=pck_cmdt_desc] {    
+     outline: 2px solid #F00 !important; 
+}
+input[name=cntr_cmdt_desc] {    
+     outline: 2px solid #F00 !important; 
+}
+*/	
+
+
+
+.bgcolor
+    {
+        background-color:#d4f6ff;
+    }
+

@@ -1,0 +1,37 @@
+{
+  "manifest_version": 3,
+  "name": "India Imports (eDO) Chrome Extension!",
+  "version": "1.0.0",
+  "description": "Last Updated: 8th May '25",
+  "key": "qdVO1j/KxM7d+9RaikP4IrRygujkIhc+9NPOTVPi8hT1giRQv8zhWF78bJfmJ9KzvCNFJvlEyLt9CHxeyDzVZCw8a37+9YyC0Ybgb5S0AyPbMRVXEP+X94s3yELxeFAfwLIVAwwyySP4hsJvZTKQy9xuc5dOl8GES2ZxCT5jam1DxFNZ16boulgeWK73iZpwgekjTUX6LReM6xLBn01QTShd8BQaIr5jZQCxxLnnKe+6rMiVmFZaCRaX5IB3xos98P23bc3QCnsH9pXcv7T1q4Ea5bqPs2QBin3f0zFlW73IxUg0hWAsSfWUehTWuGQ7ob+Yb9IwtYfuGTbo9jf8RQEAAQ==",
+  "permissions": [ "tabs" ],
+  "content_security_policy": 
+  {
+	  "script-src":  ["self"],
+	  "object-src" : ["self"]  
+  },
+  "content_scripts": [
+    {
+      "js": [ "Data.js","functions.js", "BgColor.js" ], 
+	  
+	  "css": [ "akshay.css" ],
+
+      "matches": [ "https://in.odexglobal.com/*", "http://in.odexglobal.com/*", "https://cntr.one-line.com/*", "http://cntr.one-line.com/*" ],
+
+      "all_frames": true,
+
+      "run_at": "document_end"
+    }
+  ],
+  "icons": 
+	{ 
+		"16": "assets/eDOx16.png",
+		"48": "assets/eDOx48.png",
+		"128": "assets/eDOx128.png"
+	},
+	"author": {
+		"email": "akshay.surve@wns.com",
+		"copyright": "© 2025 WNS. All rights reserved."
+	}
+}
+

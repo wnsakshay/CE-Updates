@@ -1,0 +1,27 @@
+{
+  "manifest_version": 3,
+  "name": "Malaysia Booking Chrome Extension",
+  "version": "0.0.0",
+  "description": "Draft Copy",
+  "key": "32HcQQjJqw9CVA7zvp9+fihX9zq4j1z5rm8FCvvDqk9jwGGW/+pyProfN/VmHMFQ4pSshG9cucW3rhUoTofXhhxw86/OB5eN4bpTyPd0su5KCIUI274Ce2eZNGRSqMBNEy2cKwWkyh4XhFPcVirgRSWdhL7VCQkne2//nxjwkrWufxKJddrkndRS3q2wNVg+V8AtfabBPLf6tWChRPHsTlz/xCF3u0jDmJj7DXhXSwuR45nG4Zc1Nid2+bHBG2X2GkyeM4gQ8zT9d9uN1323r/qybZGbCzikPEOPkB0dI1EDjjcFhlR/TzoJXgTwbnIBmYzYAEz3VYHIlE0nF0OQGQEAAQ==",
+  "permissions": [ "tabs" ],
+  "content_security_policy": 
+  {
+	  "script-src":  ["self"],
+	  "object-src" : ["self"]  
+  },
+  "content_scripts": [
+    {
+      "js": [ "data.js","functions.js", "bgColor.js" ], 
+	  
+	  "css": [ "styles.css" ],
+
+      "matches": [ "https://lms.pilship.com/*", "http://lms.pilship.com/*"],
+
+      "all_frames": true,
+
+      "run_at": "document_end"
+    }
+  ]
+}
+

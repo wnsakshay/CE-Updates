@@ -1,0 +1,349 @@
+case "btn_t1retrieve":
+	element[i].addEventListener("click", function() { WEQBooking_Popup(); });
+case "bkg_no":
+	element[i].addEventListener("keypress", function() { WEQBooking_Popup(); });
+
+function WEQBooking_Popup()
+{
+	setTimeout(function(){
+	var s = document.getElementsByName("xter_bkg_rqst_cd")[0].value;
+	if(s  == "WEQ")
+	{
+		document.getElementsByName("xter_bkg_rqst_cd")[0].style.backgroundColor = "red"
+		document.getElementsByName("xter_bkg_rqst_cd")[0].style.color = "white"
+		alert("WEQ Bookings are not allowed for combine");
+	}
+	else
+	{
+		document.getElementsByName("xter_bkg_rqst_cd")[0].style.backgroundColor = ""
+		document.getElementsByName("xter_bkg_rqst_cd")[0].style.color = ""
+	}
+},100);
+}
+
+====================================================================================================
+
+case "btn_t1Danger":
+	element[i].addEventListener("click", function() { alert("Please update container as per Gross Weight"); });
+
+====================================================================================================
+
+case "btn_t1Awkward":
+	element[i].addEventListener("click", function() { alert("Please assign correct container as per container TP/SZ"); });
+
+====================================================================================================
+
+case "btn_t1ReferenceNo":
+	element[i].addEventListener("mouseover", function() { document.getElementById('btn_t1ReferenceNo').style.backgroundColor = "#EC7215"; })
+	element[i].addEventListener("mouseout", function() { document.getElementById('btn_t1ReferenceNo').style.backgroundColor = ""; });
+	element[i].title = "Applicable – Only if mention on SI/SOP to show any Reference #.";
+
+====================================================================================================
+
+case "bkg_ctrl_pty_cust_cnt_cd":
+	element[i].addEventListener("mouseover", function() { document.getElementsByName('bkg_ctrl_pty_cust_cnt_cd')[0].style.backgroundColor = "#EC7215"; });
+	element[i].addEventListener("mouseout", function() { document.getElementsByName('bkg_ctrl_pty_cust_cnt_cd')[0].style.backgroundColor = ""; });
+	element[i].title = "1) CNPT should match with Shipper / Consignee / Notify / Forwarder.\r\n" +
+					"2) If not match then don’t link freight & send mail to Onshore.";
+
+====================================================================================================
+case "cmdt_cd":
+case "cmdt_desc":
+	element[i].title = "1) For US/CA Shipments - Correct CMDT should be selected as per Name Account & hint mentioned on SI/Remark. If no hint given update as per Commodity description. \r\n" +
+							"2) For Other Shipments - CMDT should be selected as per Name Account & hint mentioned on SI/Remark.";
+
+====================================================================================================
+
+case "xter_rmk":
+	element[i].title = "Need to check Cust Remarks for additional details.\r\n" +
+							"(Example - S/C No., Name A/C, Freighting Instruction & ETC).";
+
+====================================================================================================
+
+case "inter_rmk":
+	element[i].title = "Need to check Int Remarks for additional details.\r\n" +
+							"(Example - S/C No.,  Freighting Instruction & ETC).";
+
+====================================================================================================
+
+case "frt_term_cd":
+	element[i].title = "Update as per SI.\r\n" +
+								"( If missing send a email ) - keep as per system downloaded.";
+
+====================================================================================================
+
+case "btn_t9AllConfirm":
+	element[i].title = "We need to Tick on All Confirm when the container details are correctly updated.";
+
+====================================================================================================
+
+case "frt_term_cd_text":
+			element[i].title = "Update as per SI.\r\n" +
+							"(If not mentioned on SI - Send mail to customer).";
+
+====================================================================================================
+
+case "select_vessel_direction_text":
+	element[i].title = "1) Need to update 1st VVD.\r\n(If found multiple need to update 1st VVD as per T/S Route).\r\n\r\n2) For Feeder Vessel should be updated as per SI instructions.\r\n\r\nIf POR code mismatch with POL, then Check Customer Request on SI & update Feeder/Mother details accordingly.";
+
+====================================================================================================
+
+case "frm_t11sheet1_por_name":
+case "frm_t11sheet1_pol_name":
+case "frm_t11sheet1_pod_name":
+case "frm_t11sheet1_del_name":
+	element[i].title = "Update as per SI.\r\nIf Codes mismatch with SI & Booking, then update as per Booking.";
+
+====================================================================================================
+
+case "frm_t11sheet1_final_dest":
+	element[i].title = "If mention on SI then check with Onshore first.";
+
+====================================================================================================
+
+case "bl_ready_type_text":
+case "btn_t11Doc_Requirement":
+	element[i].title = "Update as per SI/BL Regulation.";
+
+====================================================================================================
+
+case "date_set_checkbox":
+case "frm_t11sheet1_on_board_date":
+	element[i].title = "For Mother Vessel update ETD as On Board Date. For Barge BLs update Barge ETD as On Board Date.";
+
+====================================================================================================
+
+case "frm_t11sheet1_bl_issue_date":
+	element[i].title = "On Board Date & BL Issue Date must be same.";
+
+====================================================================================================
+
+case "frm_t11sheet1_bl_issue_at":
+	element[i].title = "Update as per BL Prefix.\r\nIf special instruction/CSOP mentioned on SI then Follow SI/CSOP.";
+
+====================================================================================================
+
+case "frm_t11sheet1_inet_ctrl_pty_nm":
+case "frm_t11sheet1_inet_ctrl_pty_no":
+case "frm_t11sheet1_inet_ctrl_pty_cust_nm":
+	element[i].title = "Update as per 4th & 5th Letter of the BL Number from ICP code list.";
+
+====================================================================================================
+
+case "frm_t11sheet1_obl_iss_rmk":
+	element[i].title = "Click on Apply & Save.";
+
+====================================================================================================
+
+case "btn_t1retrieve":
+	element[i].title = "Please enter BL Number and click on Retrieve.";
+
+====================================================================================================
+
+case "btn_t11Save":
+	element[i].addEventListener("click", function() { setTimeout(function(){ SICheckPopUp();  },1000); });
+	
+function SICheckPopUp()
+{
+	var SHPR = document.getElementById('frm_t11sheet1_shpr_name').value;
+	
+	if(SHPR.includes("BEIJING KANG-JIE-KONG INTERNATIONAL CARGO AGENT CO., LTD.NINGBO BRANCH"))
+	{
+		window.prompt("Checked instruction for Doc requirement on SI remark, OCPS, SOP and CSOP ?");
+	}
+	else if(SHPR.includes("CENTURY DISTRIBUTION SYSTEMS (SHENZHEN) LTD NINGBO BRANCH"))
+	{
+		window.prompt("Checked instruction for Doc requirement on SI remark, OCPS, SOP and CSOP ?");
+	}
+	else if(SHPR.includes("CENTURY DISTRIBUTION SYSTEMS (SHENZHEN) LTD.SHANGHAI BRANCH"))
+	{
+		window.prompt("Checked instruction for Doc requirement on SI remark, OCPS, SOP and CSOP ?");
+	}
+	else if(SHPR.includes("CHINA STAR DISTRIBUTION CENTER (SHANGHAI) CO., LTD"))
+	{
+		window.prompt("Checked instruction for Doc requirement on SI remark, OCPS, SOP and CSOP ?");
+	}
+	else if(SHPR.includes("CHINA STAR DISTRIBUTION CENTER (SHANGHAI) CO.,LTD."))
+	{
+		window.prompt("Checked instruction for Doc requirement on SI remark, OCPS, SOP and CSOP ?");
+	}
+	else if(SHPR.includes("COHESION FREIGHT (HK) LIMITED"))
+	{
+		window.prompt("Checked instruction for Doc requirement on SI remark, OCPS, SOP and CSOP ?");
+	}
+	else if(SHPR.includes("HANGZHOU BIOKING BIOCHEMICAL ENGINEERING CO LTD"))
+	{
+		window.prompt("Checked instruction for Doc requirement on SI remark, OCPS, SOP and CSOP ?");
+	}
+	else if(SHPR.includes("JIANGSU FORTUNE BROTHER APPAREL  MANUFACTURING CO.,LTD"))
+	{
+		window.prompt("Checked instruction for Doc requirement on SI remark, OCPS, SOP and CSOP ?");
+	}
+	else if(SHPR.includes("JIANGSU GUOTAI INDUSTRIAL CO., LTD."))
+	{
+		window.prompt("Checked instruction for Doc requirement on SI remark, OCPS, SOP and CSOP ?");
+	}
+	else if(SHPR.includes("NANJING HG-NICE GAIN FABRIC CO., LTD."))
+	{
+		window.prompt("Checked instruction for Doc requirement on SI remark, OCPS, SOP and CSOP ?");
+	}
+	else if(SHPR.includes("NIPRO MEDICAL CORPORATION"))
+	{
+		window.prompt("Checked instruction for Doc requirement on SI remark, OCPS, SOP and CSOP ?");
+	}
+	else if(SHPR.includes("OUHUA SUPPLY CHAIN MANAGEMENT CO., LTD."))
+	{
+		window.prompt("Checked instruction for Doc requirement on SI remark, OCPS, SOP and CSOP ?");
+	}
+	else if(SHPR.includes("RS LOGISTICS LIMITED"))
+	{
+		window.prompt("Checked instruction for Doc requirement on SI remark, OCPS, SOP and CSOP ?");
+	}
+	else if(SHPR.includes("SHANGHAI KAIJUN LOGISTICS CO LTD"))
+	{
+		window.prompt("Checked instruction for Doc requirement on SI remark, OCPS, SOP and CSOP ?");
+	}
+	else if(SHPR.includes("SHAOXING RENBEI TRADING CO.,LTD."))
+	{
+		window.prompt("Checked instruction for Doc requirement on SI remark, OCPS, SOP and CSOP ?");
+	}
+	else if(SHPR.includes("SHAOXING SINCERE NEEDLE TEXTILE CO .,LTD."))
+	{
+		window.prompt("Checked instruction for Doc requirement on SI remark, OCPS, SOP and CSOP ?");
+	}
+	else if(SHPR.includes("SIGNIFY LUMINAIRES (SHANGHAI) CO., LTD."))
+	{
+		window.prompt("Checked instruction for Doc requirement on SI remark, OCPS, SOP and CSOP ?");
+	}
+	else if(SHPR.includes("SINOPROUD IMPORT & EXPORT CORPORATION"))
+	{
+		window.prompt("Checked instruction for Doc requirement on SI remark, OCPS, SOP and CSOP ?");
+	}
+	else if(SHPR.includes("SINPEX CONNECTION LOGISTICS LIMITED"))
+	{
+		window.prompt("Checked instruction for Doc requirement on SI remark, OCPS, SOP and CSOP ?");
+	}
+	else if(SHPR.includes("SNOW COAST APPAREL CO., LTD"))
+	{
+		window.prompt("Checked instruction for Doc requirement on SI remark, OCPS, SOP and CSOP ?");
+	}
+	else if(SHPR.includes("STARMARK INTERNATIONAL FORWARDING LIMITED"))
+	{
+		window.prompt("Checked instruction for Doc requirement on SI remark, OCPS, SOP and CSOP ?");
+	}
+	else if(SHPR.includes("UNIQUE LOGISTICS INTERNATIONAL (HK) LTD"))
+	{
+		window.prompt("Checked instruction for Doc requirement on SI remark, OCPS, SOP and CSOP ?");
+	}
+	else if(SHPR.includes("VANGUARD LOGISTICS SERVICES (HONG KONG) LTD."))
+	{
+		window.prompt("Checked instruction for Doc requirement on SI remark, OCPS, SOP and CSOP ?");
+	}
+	else if(SHPR.includes("YIWU BOSSJAZZ IMP & EXP CO., LTD."))
+	{
+		window.prompt("Checked instruction for Doc requirement on SI remark, OCPS, SOP and CSOP ?");
+	}
+	else if(SHPR.includes("YUSEN LOGISTICS (CHINA) CO., LTD."))
+	{
+		window.prompt("Checked instruction for Doc requirement on SI remark, OCPS, SOP and CSOP ?");
+	}
+	else if(SHPR.includes("YUSEN LOGISTICS (CHINA) CO., LTD.NINGBO BRANCH"))
+	{
+		window.prompt("Checked instruction for Doc requirement on SI remark, OCPS, SOP and CSOP ?");
+	}
+	else if(SHPR.includes("ZHEJIANG DILONG NEW MATERIAL CO.,LTD."))
+	{
+		window.prompt("Checked instruction for Doc requirement on SI remark, OCPS, SOP and CSOP ?");
+	}
+}
+
+====================================================================================================
+
+case "btn_t11Save":
+	element[i].addEventListener("mouseup", function() { setTimeout(function(){ Popup();  },1000); });
+
+function Popup()
+{
+	if(window.confirm("B/L DATA COMPLETE- TYPE” errors are strictly prohibited, \r\nPlease check entire SI information along with relevant SOPs and follow all required steps to update this correctly."))
+  {
+	  alert("Have you checked entire SI information along with relevant SOPs and follow all required steps to update this correctly?");
+  }
+  else
+  {
+	  alert("Have you checked entire SI information along with relevant SOPs and follow all required steps to update this correctly?");
+  }
+}
+
+====================================================================================================
+
+
+
+====================================================================================================
+
+
+
+====================================================================================================
+
+
+
+====================================================================================================
+
+
+
+====================================================================================================
+
+
+
+====================================================================================================
+
+
+
+====================================================================================================
+
+
+
+====================================================================================================
+
+
+
+====================================================================================================
+
+
+
+====================================================================================================
+
+
+
+====================================================================================================
+
+
+
+====================================================================================================
+
+
+
+====================================================================================================
+
+
+
+====================================================================================================
+
+
+
+====================================================================================================
+
+
+
+====================================================================================================
+
+
+
+====================================================================================================
+
+
+
+====================================================================================================
+
+
+
+====================================================================================================

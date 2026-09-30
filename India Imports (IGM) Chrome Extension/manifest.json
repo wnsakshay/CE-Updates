@@ -1,0 +1,37 @@
+{
+  "manifest_version": 3,
+  "name": "India Imports (IGM) Chrome Extension!",
+  "version": "1.0.0",
+  "description": "Last Updated: 15th May '25",
+  "key": "uLBQrWfCXQuUqP87TV6TP7G9gd494irtWaji5v0ai+GFobumv/3qgtvL3sXFYSO3sQXIlpy4fqL+FTlHRVM/jWfnyNaZ7oLkHcjtI3irqv14Q9wd9RjHI8rMYAMu+bS2/UoHartDqQyr9TdfNUiKliLNOMBfu86FQp7b1LdrWqnldykPVjnxgh1r/xOLbw73UGPgJOzOxErhv3v577Lhv3q2bjt71T0R73dCEiSg6bETq5DI8wXEC6F4FTiBQEQGlq8T24LgymW+6Eb7tLvwbr+iaJwNVVH6Zsno7YTzNX+0TExjvQrYJ88lvJw5L+sa5eX7m1C0OK5HEIe2VGrulQEAAQ==",
+  "permissions": [ "tabs" ],
+  "content_security_policy": 
+  {
+	  "script-src":  ["self"],
+	  "object-src" : ["self"]  
+  },
+  "content_scripts": [
+    {
+      "js": [ "Data.js","functions.js", "BgColor.js" ], 
+	  
+	  "css": [ "akshay.css" ],
+
+      "matches": [ "https://in.odexglobal.com/*", "http://in.odexglobal.com/*"],
+
+      "all_frames": true,
+
+      "run_at": "document_end"
+    }
+  ],
+  "icons": 
+	{ 
+		"16": "assets/IGMx16.png",
+		"48": "assets/IGMx48.png",
+		"128": "assets/IGMx128.png"
+	},
+	"author": {
+		"email": "akshay.surve@wns.com",
+		"copyright": "© 2025 WNS. All rights reserved."
+	}
+}
+

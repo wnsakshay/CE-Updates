@@ -1,0 +1,11 @@
+#btn_t1retrieve
+{
+	background-color: #FFA54F;
+	outline: 1px solid red !important;
+}
+
+input[name=act_wgt], input[name=mty_pkup_yd_cd], input[name=bkg_cntc_pson_eml], input[name=sc_no],input[name=rfa_no],
+input[name=btn_t1Danger], input[name=btn_t1Stowage], input[name=cmdt_cd],input[name=cmdt_desc]
+{
+	outline: 3px solid red !important;
+}
