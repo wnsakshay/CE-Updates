@@ -1,0 +1,13 @@
+input[name=bkg_sts_cd],input[name=select_vessel_direction_text],input[name=frm_t11sheet1_por_name],input[name=frm_t11sheet1_pol_name],
+input[name=frm_t11sheet1_pod_name],input[name=frm_t11sheet1_del_name],input[name=frm_t11sheet1_on_board_date],input[name=frm_t11sheet1_pol_etd_dt],
+input[name=frm_t11sheet1_bl_issue_date]
+{
+	-background-color: #FED8B1 !important;
+	outline: 1px solid red !important;
+}
+
+#select_vessel_direction_text
+{
+	-background-color: #FED8B1 !important;
+	outline: 1px solid red !important;
+}

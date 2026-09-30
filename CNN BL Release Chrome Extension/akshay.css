@@ -1,0 +1,11 @@
+#btn_t11Doc_Requirement, #select_vessel_direction_text, #select_pre_carriage_by_text, #frm_t11sheet1_trd_ppd_rcv_user_office
+{
+	background-color: #FED8B1 !important;
+	outline: 1px solid red !important;
+}
+
+input[name=frm_t11sheet1_trd_ppd_confirm]
+{
+	background-color: #FED8B1 !important;
+	outline: 1px solid red !important;
+}

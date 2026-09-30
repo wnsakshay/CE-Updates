@@ -1,0 +1,16 @@
+
+#btn_t10save
+{
+	background-color: #FFA54F;
+	outline: 1px solid red !important;
+}
+
+input[name=frm_p_t10sheet3_ofc_cd], input[name=frm_p_t10sheet3_cnt_cd], input[name=frm_p_t10sheet3_cust_seq],
+input[name=frm_c_t10sheet3_ofc_cd], input[name=frm_c_t10sheet3_cnt_cd], input[name=frm_c_t10sheet3_cust_seq],
+input[name=frm_t11sheet1_pod_code], input[name=frm_t11sheet1_del_code], input[name=frm_t11sheet1_bl_iss_tp_cd],
+input[name=bl_issuebl_type_text], input[name=bl_ready_type_text]
+{
+	border-color : red;
+}
+
+

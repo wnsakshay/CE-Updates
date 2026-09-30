@@ -1,0 +1,41 @@
+{
+	"manifest_version": 3,
+	"name": "Indexing Chrome Extension!!!",
+	"version": "2.0.10",
+	"description": "This extension helps you to guide for Customer SOP as well as General SOP Intructions[Last update: 8th Jun '26]",
+	"key": "5uAyPyNOx+UOtWSKFH6CaKgcvDbyzSpVATor08DOxLSvPbfqMPUpdLTIxbOZ0GkIQXvRMimIidHrvEA85DLoOd+DG1fOx1E8QZfjdcZKVZG4YeKEqKV9yQT4dVmgDR+i6sRYk+6XZNq1S1Ni073XndbI0HhP562ktkp1Z3HZeYBR3xldbVO5AlHS9Xj6LWXylL8Dzl2viUtHzVZYJcPqh60yljP23S5pqQJjmPn00MgGdf933LYZT8xQ8K/n3A8e3Mn46PJwBp1MBfDrRwfXGcHQO34RIlUKMmzmYLluX8Pyhc8QSiTQBSXG01kTk+JnGb6MjllsEnq93Zlq9ifVTQEAAQ==",
+	"host_permissions": [
+		"https://wnsakshay.github.io/*"
+	],
+	"permissions": [ "tabs" ],
+	"background": 
+	{
+		"service_worker": "service-worker.js"
+	},
+	"content_security_policy": 
+	{
+		"script-src": ["self"],
+		"object-src": ["self"]   
+	},
+	"icons": 
+	{ 
+		"16": "icon.png",
+        "48": "icon.png",
+        "128": "icon.png" 
+	},
+	"content_scripts": 
+	[
+		{
+			"js": [ "JQ.js", "Data.js","functions.js"],  
+		
+			"css": [ "akshay.css" ],
+
+			"matches": [ "https://cntr.one-line.com/*", "http://cntr.one-line.com/*" ],
+
+			"all_frames": true,
+
+			"run_at": "document_end"
+		}
+	]
+}
+

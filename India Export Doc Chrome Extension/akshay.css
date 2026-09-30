@@ -1,0 +1,30 @@
+
+#btn_t1retrieve
+{
+	background-color: #FFA54F;
+	outline: 1px solid red !important;
+}
+
+input[name=frm_p_t10sheet3_ofc_cd], input[name=frm_p_t10sheet3_cnt_cd], input[name=frm_p_t10sheet3_cust_seq], 
+input[name=mk_desc], input[name=dg_cmdt_desc]
+{
+	background-color: #F9FF9D !important;
+	outline: 1px solid red !important;
+}
+
+input[name=sh_cust_cty_nm], input[name=sh_cust_ste_cd], input[name=sh_cstms_decl_cnt_cd],input[name=sh_cust_zip_id], 
+input[name=sh_eur_cstms_st_nm], input[name=cn_cust_cty_nm], input[name=cn_cust_ste_cd], input[name=cn_cstms_decl_cnt_cd], 
+input[name=cn_cust_zip_id], input[name=cn_eur_cstms_st_nm], input[name=nf_cust_cty_nm], input[name=nf_cust_ste_cd], 
+input[name=nf_cstms_decl_cnt_cd], input[name=nf_cust_zip_id], input[name=nf_eur_cstms_st_nm], input[name=pck_qty], 
+input[name=pck_tp_cd], input[name=act_wgt],input[name=wgt_ut_cd], input[name=meas_qty], input[name=meas_ut_cd], 
+input[name=cstms_desc]
+{
+	background-color: #F9FF9D !important;
+	outline: 1px solid red !important;
+}
+
+textarea[name=mk_desc],textarea[name=dg_cmdt_desc]
+{
+	background-color: #F9FF9D !important;
+	outline: 1px solid red !important;
+}

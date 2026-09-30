@@ -1,0 +1,19 @@
+#btn_t1TPSZ, #xter_rmk, #scac_cd, #btn_t1ReferenceNo, #btn_t1Reefer, #bkg_pod_cd, #bkg_del_cd, #ob_sls_ofc_cd, #ob_srep_cd
+{
+	outline: 2px solid red !important;
+}
+
+textarea[name=xter_rmk], textarea[name=inter_rmk]
+{
+	outline: 2px solid #F00 !important;
+}
+
+select[name=svc_scp_cd]
+{
+	outline: 2px solid #F00 !important;
+}
+
+input[name=pre_rly_port_cd], input[name=pst_rly_port_cd], input[name=cmdt_cd], input[name=cmdt_desc]
+{
+	outline: 2px solid #F00 !important;
+}

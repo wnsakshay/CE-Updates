@@ -1,0 +1,42 @@
+{
+	"manifest_version": 3,
+	"name": "BL Release Extension!!!",
+	"version": "2.0.11",
+	"description": "CNN BL Release Chrome Extension [Last Update: 9th Sep '26]",
+	"key": "pKzO7930CJsQ011Hdpq1ZBv6jCx7MODRDv+Pj2WxynvRSwV+CW819U1TvALboyg38bLux64tnRMLlninv1a1DiYdvszqDuZN0CJursE3uayakuWES+KoYfk1CaoaeZk9kMEEGD2EJOseoJMVV0tYPnnnQa7PR1HJ41HK0yXFCnT2Tx17QglyIGGbf+/wZPZBuOfmpS0TvlhUpizCxuooqQkCyvXSv1aaWu2wkShTTCJN3QBX4FVNHF4DYWkbiXi5UU3H/68u0mU5VO0o7g6KOyH2L8lCVtbaOh0bc1HmPbYm6yHgIsLOY9xIYmGfl5Lj4vwh2pIMGgBzyWfKNjXD6QEAAQ==",
+	"host_permissions": [
+		"https://wnsakshay.github.io/*"
+	],
+	"permissions": [ "tabs" ],
+	"background": 
+	{
+		"service_worker": "service-worker.js"
+	},
+	"content_security_policy": 
+	{
+		"script-src":  ["self"],
+		"object-src" : ["self"]  
+	},
+  "icons": 
+	{ 
+		"16": "assets/icon.png",
+        "48": "assets/icon.png",
+        "128": "assets/icon.png" 
+	},
+	"content_scripts": [
+    {
+		"js": [ "JQ.js", "Data.js","functions.js" ], 
+	  
+		"css": [ "akshay.css" ],
+
+		"matches": [ "https://cntr.one-line.com/*", "http://cntr.one-line.com/*" ],
+
+		"Permission": [ "tabs" ],
+
+		"all_frames": true,
+
+		"run_at": "document_end"
+    }
+	]
+}
+

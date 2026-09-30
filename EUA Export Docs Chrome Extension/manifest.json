@@ -1,0 +1,28 @@
+{
+  "manifest_version": 3,
+  "name": "EUA Export Docs Extension!",
+  "version": "1.0.7",
+  "description": "This extension helps you to guide for Customer SOP as well as General SOP Intructions. [Last updated: 5th Nov'2024]",
+  "key": "t8VADKBJqwLonehUf6sRYMraTwU5lKuSnUljqTPmJrPHkluwQhh3z5tK1c3RVAOOyTVE+4tF/pQxYAmekoa+Uvs2UtlBbusPFWHIUnxiuCuA1Ce7vS1wIyytnXYnUZjcGty3QLueYNCqg7gViJaTBf/dgZWBkypddxgcCoZvgfpOvfIOLzuIT6bQi8MyJY/BAFOGFNZtx9+Q4wN5pGExCqjB6dvQHUoQFsFOUnW5kYMoKjzmWY3UWsB76P1othu66L7MXs5fJMsIUDz8UfsH/HR+AHzKlNS++IzBITHwDB8iD9AFFG9WeaTTyZQo81qLpJBSB6m/Te6PFvmj2B8CGQEAAQ==",
+  "permissions": [ "tabs" ],
+  "content_security_policy": 
+  {
+	  "script-src":  ["self"],
+	  "object-src" : ["self"]  
+  },
+  
+  "content_scripts": [
+    {
+      "js": [ "Data.js","functions.js", "BgColor.js" ], 
+	  
+	  "css": [ "akshay.css" ],
+
+      "matches": [ "https://cntr.one-line.com/*", "http://cntr.one-line.com/*" ],
+
+      "all_frames": true,
+
+      "run_at": "document_end"
+    }
+  ]
+}
+
