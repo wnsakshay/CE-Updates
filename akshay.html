@@ -1,3 +1,4 @@
+<!DOCTYPE html> <html lang="en"> <head> <meta charset="UTF-8"> <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>PDF Analyzer</title>
 
 <!-- Puter.js -->
@@ -90,3 +91,53 @@
         color: #2563eb;
     }
 </style>
+
+</head> <body> <div class="container">
+<h1>PDF Analyzer</h1>
+
+<div class="description">
+
+    <p>
+        Select a PDF stored anywhere on your computer.
+        The browser will read the selected PDF and extract
+        its text. Puter AI will then analyze the document.
+    </p>
+
+    <p>
+        The PDF does not need to be uploaded to GitHub.
+    </p>
+
+</div>
+
+
+<div class="file-area">
+
+    <input
+        type="file"
+        id="pdfFile"
+        accept=".pdf,application/pdf"
+    >
+
+    <br>
+
+    <div id="fileName">
+        No PDF selected
+    </div>
+
+    <br>
+
+    <button id="analyzeButton" disabled>
+        Analyze PDF
+    </button>
+
+</div>
+
+
+<div id="status">
+    Please select a PDF file.
+</div>
+
+
+<div id="result"></div>
+
+</div> <script> const pdfInput = document.getElementById("pdfFile"); const analyzeButton = document.getElementById("analyzeButton"); const status = document.getElementById("status"); const result = document.getElementById("result"); const fileName = document.getElementById("fileName"); let selectedPDF = null; // ========================================================== // PDF SELECTION // ========================================================== pdfInput.addEventListener("change", function () { selectedPDF = pdfInput.files[0]; if (!selectedPDF) { analyzeButton.disabled = true; fileName.textContent = "No PDF selected"; status.textContent = "Please select a PDF file."; return; } fileName.innerHTML = `Selected: <span class="file-name">${escapeHtml(selectedPDF.name)}</span>`; status.textContent = `PDF selected (${formatBytes(selectedPDF.size)}). Click "Analyze PDF".`; result.textContent = ""; analyzeButton.disabled = false; }); // ========================================================== // ANALYZE BUTTON // ========================================================== analyzeButton.addEventListener("click", async function () { if (!selectedPDF) { return; } analyzeButton.disabled = true; result.textContent = ""; try { // -------------------------------------------------- // STEP 1: READ LOCAL PDF // -------------------------------------------------- status.textContent = "Reading PDF from your computer..."; const arrayBuffer = await selectedPDF.arrayBuffer(); // -------------------------------------------------- // STEP 2: LOAD PDF // -------------------------------------------------- status.textContent = "Opening PDF..."; const pdf = await window.pdfjsLib.getDocument({ data: arrayBuffer }).promise; const totalPages = pdf.numPages; let completeText = ""; // -------------------------------------------------- // STEP 3: EXTRACT TEXT FROM EVERY PAGE // -------------------------------------------------- for ( let pageNumber = 1; pageNumber <= totalPages; pageNumber++ ) { status.textContent = `Extracting text: page ${pageNumber} of ${totalPages}...`; const page = await pdf.getPage(pageNumber); const textContent = await page.getTextContent(); const pageText = textContent.items .map(item => item.str) .join(" "); completeText += `\n\n==============================\n`; completeText += `PAGE ${pageNumber}\n`; completeText += `==============================\n\n`; completeText += pageText; } // -------------------------------------------------- // CHECK WHETHER TEXT WAS FOUND // -------------------------------------------------- if (!completeText.trim()) { throw new Error( "No text could be extracted from this PDF. " + "This may be a scanned/image-only PDF. " + "OCR will be required." ); } console.log( "Extracted PDF text:", completeText ); // -------------------------------------------------- // STEP 4: SEND TO PUTER AI // -------------------------------------------------- status.textContent = "PDF text extracted. Sending document to Puter AI..."; const prompt = ` You are an expert document analyst. I have provided the extracted text from a PDF document. Analyze it carefully and explain it clearly. PDF DOCUMENT ================================================ ${completeText} ================================================ Provide the analysis using these sections: 1. EXECUTIVE SUMMARY Explain what the document is about in simple, clear language. 2. DOCUMENT OVERVIEW Explain: - What type of document this appears to be - Its purpose - The organization/person involved - The period covered, if available - The main subject 3. KEY DETAILS Extract important: - Names - Organizations - Dates - Locations - Amounts - Percentages - Quantities - Reference numbers - Deadlines - Measurements 4. KEY FINDINGS Explain the most important findings contained in the document. 5. NUMERICAL ANALYSIS Identify important numbers and explain what they mean. Where the document provides enough data, perform useful calculations. Do not invent missing numbers. 6. TRENDS AND PATTERNS Identify: - Increases - Decreases - Changes over time - Significant patterns - Unusual values - Relationships between values 7. RISKS / ISSUES / RED FLAGS Identify anything that deserves attention, including: - Missing information - Contradictions - Unusual values - Potential errors - Deadlines - Compliance issues - Financial concerns - Technical concerns 8. IMPORTANT ACTION ITEMS List specific things the reader may need to investigate, verify, decide, or do next. 9. PLAIN ENGLISH EXPLANATION Explain the entire document as though you were explaining it to a person who has never seen the document before. Avoid unnecessary technical language. 10. QUESTIONS / UNCERTAINTIES Identify information that is unclear, missing, or cannot be determined from the document. IMPORTANT RULES: - Do not invent facts. - Do not assume information that is not present. - Preserve dates and numbers accurately. - Clearly distinguish document facts from analysis. - If information is missing, explicitly say so. - If the document contains conflicting information, point it out. - Use headings and bullet points where useful. `; // -------------------------------------------------- // STEP 5: PUTER AI // -------------------------------------------------- const response = await puter.ai.chat(prompt); // -------------------------------------------------- // STEP 6: DISPLAY ANALYSIS // -------------------------------------------------- status.textContent = `Analysis complete. PDF contained ${totalPages} page(s).`; if (typeof response === "string") { result.textContent = response; } else { result.textContent = JSON.stringify( response, null, 2 ); } } catch (error) { console.error(error); status.textContent = "An error occurred while processing the PDF."; result.textContent = `Error:\n\n${error.message}`; } finally { analyzeButton.disabled = false; } }); // ========================================================== // HELPERS // ========================================================== function formatBytes(bytes) { if (bytes === 0) { return "0 Bytes"; } const units = [ "Bytes", "KB", "MB", "GB" ]; const index = Math.floor( Math.log(bytes) / Math.log(1024) ); return ( parseFloat( ( bytes / Math.pow(1024, index) ).toFixed(2) ) + " " + units[index] ); } function escapeHtml(text) { const div = document.createElement("div"); div.textContent = text; return div.innerHTML; } </script> </body> </html>
