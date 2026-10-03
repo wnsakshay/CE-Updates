@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>PDF Analyzer</title>
+
+    <script src="https://js.puter.com/v2/"></script>
+
+    <!-- PDF.js for extracting text from PDF files -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.10.38/pdf.min.mjs"
+            type="module"></script>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        #status {
+            padding: 12px;
+            background: #f3f3f3;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        #result {
+            white-space: pre-wrap;
+            background: #fafafa;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+        }
+    </style>
+</head>
+
+<body>
+
+<h1>PDF Analyzer</h1>
+
+<div id="status">Starting...</div>
+
+<div id="result"></div>
+
+<script type="module">
+
+    import * as pdfjsLib
+        from "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.10.38/pdf.min.mjs";
+
+    // =========================================================
+    // CHANGE THIS TO YOUR FIXED PUTER PDF PATH
+    // =========================================================
+
+    const PDF_PATH = "C:\Akshay\Test Environment\ShippingInstructionReader\ShippingInstructionReader\bin\Debug\net8.0-windows\NB6BDAT31600.pdf";
+
+
+    const status = document.getElementById("status");
+    const result = document.getElementById("result");
+
+
+    function setStatus(message) {
+        status.innerHTML = message;
+    }
+
+
+    async function extractPDFText(blob) {
+
+        // Convert Puter Blob to ArrayBuffer
+        const arrayBuffer = await blob.arrayBuffer();
+
+        // Load PDF using PDF.js
+        const pdf = await pdfjsLib.getDocument({
+            data: arrayBuffer
+        }).promise;
+
+        let fullText = "";
+
+        // Extract text from every page
+        for (let pageNumber = 1; pageNumber <= pdf.numPages; pageNumber++) {
+
+            setStatus(
+                `Reading PDF... page ${pageNumber} of ${pdf.numPages}`
+            );
+
+            const page = await pdf.getPage(pageNumber);
+
+            const textContent = await page.getTextContent();
+
+            const pageText = textContent.items
+                .map(item => item.str)
+                .join(" ");
+
+            fullText += `\n\n--- PAGE ${pageNumber} ---\n\n`;
+            fullText += pageText;
+        }
+
+        return fullText;
+    }
+
+
+    async function analyzePDF(text) {
+
+        setStatus("Analyzing the document with AI...");
+
+        const prompt = `
+You are an expert document analyst.
+
+Analyze the following PDF document carefully.
+
+DOCUMENT:
+========================
+${text}
+========================
+
+Provide a clear, structured analysis.
+
+Use the following sections:
+
+1. EXECUTIVE SUMMARY
+Explain what this document is about in simple language.
+
+2. KEY POINTS
+List the most important information.
+
+3. IMPORTANT DETAILS
+Identify important:
+- dates
+- names
+- organizations
+- amounts
+- percentages
+- measurements
+- deadlines
+- reference numbers
+- other significant facts
+
+4. FINDINGS
+Explain the major findings or conclusions in the document.
+
+5. RISKS / ISSUES
+Identify anything potentially concerning, inconsistent, unusual,
+ambiguous, missing, or requiring attention.
+
+6. ACTION ITEMS
+Identify what the reader may need to do next, if the document
+contains instructions, obligations, deadlines, or recommendations.
+
+7. PLAIN ENGLISH EXPLANATION
+Explain the document as if you were explaining it to someone
+who has not read it.
+
+8. QUESTIONS / UNCERTAINTIES
+List anything that cannot be determined from the document
+or that may require clarification.
+
+Important:
+- Do not invent information.
+- If something is not present in the document, say so.
+- Distinguish facts stated in the document from your interpretation.
+- Preserve important numbers and dates accurately.
+`;
+
+        const response = await puter.ai.chat(prompt);
+
+        return response;
+    }
+
+
+    async function main() {
+
+        try {
+
+            // -------------------------------------------------
+            // 1. READ THE FIXED PDF FROM PUTER FILESYSTEM
+            // -------------------------------------------------
+
+            setStatus(`Reading: ${PDF_PATH}`);
+
+            const blob = await puter.fs.read(PDF_PATH);
+
+            if (!blob) {
+                throw new Error("Could not read the PDF file.");
+            }
+
+
+            // -------------------------------------------------
+            // 2. EXTRACT TEXT FROM PDF
+            // -------------------------------------------------
+
+            const text = await extractPDFText(blob);
+
+
+            if (!text || text.trim().length === 0) {
+
+                throw new Error(
+                    "No text could be extracted from this PDF. " +
+                    "It may be a scanned/image-only PDF."
+                );
+            }
+
+
+            console.log("Extracted PDF text:");
+            console.log(text);
+
+
+            // -------------------------------------------------
+            // 3. SEND TEXT TO AI FOR ANALYSIS
+            // -------------------------------------------------
+
+            const analysis = await analyzePDF(text);
+
+
+            // -------------------------------------------------
+            // 4. DISPLAY RESULT
+            // -------------------------------------------------
+
+            setStatus("Analysis complete.");
+
+            result.textContent =
+                typeof analysis === "string"
+                    ? analysis
+                    : JSON.stringify(analysis, null, 2);
+
+        } catch (error) {
+
+            console.error(error);
+
+            setStatus("Error reading or analyzing the PDF.");
+
+            result.textContent =
+                "Error: " + error.message;
+        }
+    }
+
+
+    main();
+
+</script>
+
+</body>
+</html>
