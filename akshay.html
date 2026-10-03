@@ -1,119 +1,302 @@
-<!DOCTYPE html> <html lang="en"> <head> <meta charset="UTF-8"> <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>PDF Analyzer</title>
+<!DOCTYPE html> <html lang="en"> <head>
+<meta charset="UTF-8">
 
-<!-- Puter.js -->
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
+
+<title>
+    B/L Handling - C/M Analysis
+</title>
+
+<!-- =======================================================
+     PUTER.JS
+     ======================================================= -->
+
 <script src="https://js.puter.com/v2/"></script>
 
-<!-- PDF.js -->
+<!-- =======================================================
+     PDF.JS
+     ======================================================= -->
+
 <script type="module">
+
     import * as pdfjsLib
         from "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.10.38/pdf.min.mjs";
+
+    /*
+     * IMPORTANT:
+     *
+     * PDF.js requires the worker location.
+     */
 
     pdfjsLib.GlobalWorkerOptions.workerSrc =
         "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.10.38/pdf.worker.min.mjs";
 
+    /*
+     * Make PDF.js available to the main script.
+     */
+
     window.pdfjsLib = pdfjsLib;
+
 </script>
 
+<!-- =======================================================
+     PAGE STYLE
+     ======================================================= -->
+
 <style>
+
+    * {
+        box-sizing: border-box;
+    }
+
     body {
-        font-family: Arial, sans-serif;
-        background: #f4f6f8;
+
         margin: 0;
+
         padding: 30px;
+
+        background: #f3f5f7;
+
+        font-family:
+            Arial,
+            Helvetica,
+            sans-serif;
+
+        color: #222;
     }
 
     .container {
-        max-width: 1100px;
+
+        max-width: 1200px;
+
         margin: auto;
+
         background: white;
+
         padding: 30px;
+
         border-radius: 12px;
-        box-shadow: 0 3px 15px rgba(0,0,0,0.08);
+
+        box-shadow:
+            0 3px 15px
+            rgba(0,0,0,0.08);
     }
 
     h1 {
+
         margin-top: 0;
+
+        color: #1f2937;
+    }
+
+    h2 {
+
+        margin-top: 30px;
+
+        color: #1f2937;
     }
 
     .description {
+
         color: #555;
+
         line-height: 1.6;
+
+        margin-bottom: 25px;
     }
 
-    .file-area {
-        margin-top: 25px;
-        padding: 25px;
-        border: 2px dashed #aaa;
+    .upload-area {
+
+        border: 2px dashed #9ca3af;
+
         border-radius: 10px;
+
+        padding: 30px;
+
         text-align: center;
+
+        background: #fafafa;
     }
 
     input[type="file"] {
-        margin: 15px;
+
+        margin: 15px 0;
+
+        font-size: 15px;
     }
 
     button {
+
         background: #2563eb;
+
         color: white;
+
         border: none;
-        padding: 12px 22px;
+
+        padding: 13px 24px;
+
         border-radius: 7px;
+
         font-size: 16px;
+
         cursor: pointer;
+
+        margin-top: 10px;
     }
 
     button:hover {
+
         background: #1d4ed8;
     }
 
     button:disabled {
-        background: #999;
+
+        background: #9ca3af;
+
         cursor: not-allowed;
     }
 
+    #fileName {
+
+        margin-top: 10px;
+
+        font-weight: bold;
+
+        color: #2563eb;
+    }
+
     #status {
+
         margin-top: 20px;
+
         padding: 14px;
-        border-radius: 7px;
-        background: #eef2ff;
+
+        background: #eff6ff;
+
+        border-left: 4px solid #2563eb;
+
+        border-radius: 5px;
+
+        line-height: 1.5;
+    }
+
+    .section {
+
+        margin-top: 25px;
+
+        padding: 20px;
+
+        border: 1px solid #ddd;
+
+        border-radius: 8px;
+
+        background: #fff;
+    }
+
+    .section-title {
+
+        font-size: 20px;
+
+        font-weight: bold;
+
+        margin-bottom: 15px;
+
+        color: #1f2937;
+    }
+
+    #extractedText {
+
+        white-space: pre-wrap;
+
+        background: #f8fafc;
+
+        padding: 20px;
+
+        border-radius: 6px;
+
+        border: 1px solid #ddd;
+
+        max-height: 500px;
+
+        overflow-y: auto;
+
+        font-family:
+            Consolas,
+            Monaco,
+            monospace;
+
+        font-size: 13px;
+
+        line-height: 1.5;
     }
 
     #result {
-        margin-top: 25px;
-        padding: 25px;
-        background: #fafafa;
-        border: 1px solid #ddd;
-        border-radius: 8px;
+
         white-space: pre-wrap;
+
+        background: #fafafa;
+
+        padding: 25px;
+
+        border-radius: 6px;
+
+        border: 1px solid #ddd;
+
         line-height: 1.7;
+
+        font-size: 15px;
     }
 
-    .file-name {
-        font-weight: bold;
-        color: #2563eb;
+    .success {
+
+        color: #166534;
     }
+
+    .error {
+
+        color: #b91c1c;
+    }
+
+    .info {
+
+        color: #1d4ed8;
+    }
+
 </style>
 
 </head> <body> <div class="container">
-<h1>PDF Analyzer</h1>
+<h1>
+    B/L Handling → C/M Analysis
+</h1>
 
 <div class="description">
 
     <p>
-        Select a PDF stored anywhere on your computer.
-        The browser will read the selected PDF and extract
-        its text. Puter AI will then analyze the document.
+        Select a PDF from your computer.
+        The application will extract only the section
+        beginning with <strong>REMARK (B/L Handling)</strong>
+        and ending with <strong>C/M (Container Manifest)</strong>.
     </p>
 
     <p>
-        The PDF does not need to be uploaded to GitHub.
+        That section will then be analyzed by Puter AI
+        for B/L handling, Container Manifest requirements,
+        deadlines, risks, discrepancies and action items.
+    </p>
+
+    <p>
+        The PDF does <strong>not</strong> need to be uploaded
+        to GitHub.
     </p>
 
 </div>
 
+<!-- =======================================================
+     FILE SELECTION
+     ======================================================= -->
 
-<div class="file-area">
+<div class="upload-area">
 
     <input
         type="file"
@@ -121,46 +304,829 @@
         accept=".pdf,application/pdf"
     >
 
-    <br>
-
     <div id="fileName">
         No PDF selected
     </div>
 
-    <br>
-
-    <button id="analyzeButton" disabled>
+    <button
+        id="analyzeButton"
+        disabled
+    >
         Analyze PDF
     </button>
 
 </div>
 
+<!-- =======================================================
+     STATUS
+     ======================================================= -->
 
 <div id="status">
+
     Please select a PDF file.
+
 </div>
 
+<!-- =======================================================
+     EXTRACTED SECTION
+     ======================================================= -->
 
-<div id="result"></div>
+<div
+    class="section"
+    id="extractedSection"
+    style="display:none;"
+>
 
-</div> <script> const pdfInput = document.getElementById("pdfFile"); const analyzeButton = document.getElementById("analyzeButton"); const status = document.getElementById("status"); const result = document.getElementById("result"); const fileName = document.getElementById("fileName"); let selectedPDF = null; 
-    // ========================================================== // PDF SELECTION // ========================================================== 
-    pdfInput.addEventListener("change", function () { selectedPDF = pdfInput.files[0]; if (!selectedPDF) { analyzeButton.disabled = true; fileName.textContent = "No PDF selected"; status.textContent = "Please select a PDF file."; return; } fileName.innerHTML = `Selected: <span class="file-name">${escapeHtml(selectedPDF.name)}</span>`; status.textContent = `PDF selected (${formatBytes(selectedPDF.size)}). Click "Analyze PDF".`; result.textContent = ""; analyzeButton.disabled = false; }); 
-    // ========================================================== // ANALYZE BUTTON // ========================================================== 
-    analyzeButton.addEventListener("click", async function () { if (!selectedPDF) { return; } analyzeButton.disabled = true; result.textContent = ""; try { 
-        // -------------------------------------------------- // STEP 1: READ LOCAL PDF // -------------------------------------------------- 
-        status.textContent = "Reading PDF from your computer..."; const arrayBuffer = await selectedPDF.arrayBuffer(); 
-        // -------------------------------------------------- // STEP 2: LOAD PDF // -------------------------------------------------- 
-        status.textContent = "Opening PDF..."; const pdf = await window.pdfjsLib.getDocument({ data: arrayBuffer }).promise; const totalPages = pdf.numPages; let completeText = ""; 
-        // -------------------------------------------------- // STEP 3: EXTRACT TEXT FROM EVERY PAGE // -------------------------------------------------- 
-        for ( let pageNumber = 1; pageNumber <= totalPages; pageNumber++ ) { status.textContent = `Extracting text: page ${pageNumber} of ${totalPages}...`; const page = await pdf.getPage(pageNumber); const textContent = await page.getTextContent(); const pageText = textContent.items .map(item => item.str) .join(" "); completeText += `\n\n==============================\n`; completeText += `PAGE ${pageNumber}\n`; completeText += `==============================\n\n`; completeText += pageText; } 
-        // -------------------------------------------------- // CHECK WHETHER TEXT WAS FOUND // -------------------------------------------------- 
-        if (!completeText.trim()) { throw new Error( "No text could be extracted from this PDF. " + "This may be a scanned/image-only PDF. " + "OCR will be required." ); } console.log( "Extracted PDF text:", completeText ); 
-        // -------------------------------------------------- // STEP 4: SEND TO PUTER AI // -------------------------------------------------- 
-        status.textContent = "PDF text extracted. Sending document to Puter AI..."; const prompt = ` You are an expert document analyst. I have provided the extracted text from a PDF document. Analyze it carefully and explain it clearly. PDF DOCUMENT ================================================ ${completeText} ================================================ Provide the analysis using these sections: 1. EXECUTIVE SUMMARY Explain what the document is about in simple, clear language. 2. DOCUMENT OVERVIEW Explain: - What type of document this appears to be - Its purpose - The organization/person involved - The period covered, if available - The main subject 3. KEY DETAILS Extract important: - Names - Organizations - Dates - Locations - Amounts - Percentages - Quantities - Reference numbers - Deadlines - Measurements 4. KEY FINDINGS Explain the most important findings contained in the document. 5. NUMERICAL ANALYSIS Identify important numbers and explain what they mean. Where the document provides enough data, perform useful calculations. Do not invent missing numbers. 6. TRENDS AND PATTERNS Identify: - Increases - Decreases - Changes over time - Significant patterns - Unusual values - Relationships between values 7. RISKS / ISSUES / RED FLAGS Identify anything that deserves attention, including: - Missing information - Contradictions - Unusual values - Potential errors - Deadlines - Compliance issues - Financial concerns - Technical concerns 8. IMPORTANT ACTION ITEMS List specific things the reader may need to investigate, verify, decide, or do next. 9. PLAIN ENGLISH EXPLANATION Explain the entire document as though you were explaining it to a person who has never seen the document before. Avoid unnecessary technical language. 10. QUESTIONS / UNCERTAINTIES Identify information that is unclear, missing, or cannot be determined from the document. IMPORTANT RULES: - Do not invent facts. - Do not assume information that is not present. - Preserve dates and numbers accurately. - Clearly distinguish document facts from analysis. - If information is missing, explicitly say so. - If the document contains conflicting information, point it out. - Use headings and bullet points where useful. `; 
-        // -------------------------------------------------- // STEP 5: PUTER AI // -------------------------------------------------- 
-        const response = await puter.ai.chat(prompt); 
-        // -------------------------------------------------- // STEP 6: DISPLAY ANALYSIS // -------------------------------------------------- 
-        status.textContent = `Analysis complete. PDF contained ${totalPages} page(s).`; if (typeof response === "string") { result.textContent = response; } else { result.textContent = JSON.stringify( response, null, 2 ); } } catch (error) { console.error(error); status.textContent = "An error occurred while processing the PDF."; result.textContent = `Error:\n\n${error.message}`; } finally { analyzeButton.disabled = false; } }); 
-    // ========================================================== // HELPERS // ========================================================== 
-    function formatBytes(bytes) { if (bytes === 0) { return "0 Bytes"; } const units = [ "Bytes", "KB", "MB", "GB" ]; const index = Math.floor( Math.log(bytes) / Math.log(1024) ); return ( parseFloat( ( bytes / Math.pow(1024, index) ).toFixed(2) ) + " " + units[index] ); } function escapeHtml(text) { const div = document.createElement("div"); div.textContent = text; return div.innerHTML; } </script> </body> </html>
+    <div class="section-title">
+
+        Extracted REMARK → C/M Section
+
+    </div>
+
+    <div id="extractedText"></div>
+
+</div>
+
+<!-- =======================================================
+     AI ANALYSIS
+     ======================================================= -->
+
+<div
+    class="section"
+    id="analysisSection"
+    style="display:none;"
+>
+
+    <div class="section-title">
+
+        Detailed Analysis
+
+    </div>
+
+    <div id="result"></div>
+
+</div>
+
+</div> <script>
+/* ============================================================
+ELEMENTS
+============================================================ */
+
+const pdfInput =
+document.getElementById("pdfFile");
+
+const analyzeButton =
+document.getElementById("analyzeButton");
+
+const status =
+document.getElementById("status");
+
+const fileName =
+document.getElementById("fileName");
+
+const extractedSection =
+document.getElementById("extractedSection");
+
+const extractedTextElement =
+document.getElementById("extractedText");
+
+const analysisSection =
+document.getElementById("analysisSection");
+
+const result =
+document.getElementById("result");
+
+let selectedPDF = null;
+
+/* ============================================================
+FILE SELECTION
+============================================================ */
+
+pdfInput.addEventListener(
+"change",
+function () {
+
+    selectedPDF =
+        pdfInput.files[0];
+
+    if (!selectedPDF) {
+
+        analyzeButton.disabled = true;
+
+        fileName.textContent =
+            "No PDF selected";
+
+        status.textContent =
+            "Please select a PDF file.";
+
+        return;
+
+    }
+
+    fileName.textContent =
+        "Selected: " +
+        selectedPDF.name;
+
+    status.textContent =
+        "PDF selected. Click 'Analyze PDF'.";
+
+    status.className =
+        "info";
+
+    analyzeButton.disabled =
+        false;
+
+    extractedSection.style.display =
+        "none";
+
+    analysisSection.style.display =
+        "none";
+
+    result.textContent = "";
+
+}
+
+);
+
+/* ============================================================
+ANALYZE PDF
+============================================================ */
+
+analyzeButton.addEventListener(
+"click",
+async function () {
+
+    if (!selectedPDF) {
+
+        return;
+
+    }
+
+    analyzeButton.disabled =
+        true;
+
+    extractedSection.style.display =
+        "none";
+
+    analysisSection.style.display =
+        "none";
+
+    result.textContent = "";
+
+    try {
+
+        /* =================================================
+           STEP 1
+           READ LOCAL PDF
+           ================================================= */
+
+        status.textContent =
+            "Reading PDF from your computer...";
+
+        const arrayBuffer =
+            await selectedPDF.arrayBuffer();
+
+        /* =================================================
+           STEP 2
+           CHECK PDF.JS
+           ================================================= */
+
+        if (!window.pdfjsLib) {
+
+            throw new Error(
+                "PDF.js has not finished loading. " +
+                "Please wait a moment and try again."
+            );
+
+        }
+
+        /* =================================================
+           STEP 3
+           LOAD PDF
+           ================================================= */
+
+        status.textContent =
+            "Opening PDF...";
+
+        const pdf =
+            await window.pdfjsLib
+                .getDocument({
+                    data: arrayBuffer
+                })
+                .promise;
+
+        const totalPages =
+            pdf.numPages;
+
+        /* =================================================
+           STEP 4
+           EXTRACT ALL PDF TEXT
+           ================================================= */
+
+        let completeText = "";
+
+        for (
+            let pageNumber = 1;
+            pageNumber <= totalPages;
+            pageNumber++
+        ) {
+
+            status.textContent =
+                "Extracting text from page " +
+                pageNumber +
+                " of " +
+                totalPages +
+                "...";
+
+            const page =
+                await pdf.getPage(
+                    pageNumber
+                );
+
+            const textContent =
+                await page.getTextContent();
+
+            const pageText =
+                textContent.items
+                    .map(
+                        item => item.str
+                    )
+                    .join(" ");
+
+            completeText +=
+                "\n\n" +
+                "==============================" +
+                "\n" +
+                "PAGE " +
+                pageNumber +
+                "\n" +
+                "==============================" +
+                "\n\n";
+
+            completeText +=
+                pageText;
+
+        }
+
+        /* =================================================
+           STEP 5
+           FIND REMARK SECTION
+           ================================================= */
+
+        status.textContent =
+            "Searching for REMARK (B/L Handling)...";
+
+        const remarkSection =
+            extractRemarkToCM(
+                completeText
+            );
+
+        /* =================================================
+           STEP 6
+           SHOW EXTRACTED SECTION
+           ================================================= */
+
+        extractedTextElement.textContent =
+            remarkSection;
+
+        extractedSection.style.display =
+            "block";
+
+        /* =================================================
+           STEP 7
+           SEND ONLY THIS SECTION TO PUTER AI
+           ================================================= */
+
+        status.textContent =
+            "Section found. Sending it to Puter AI for analysis...";
+
+        const analysis =
+            await analyzeWithPuter(
+                remarkSection
+            );
+
+        /* =================================================
+           STEP 8
+           DISPLAY ANALYSIS
+           ================================================= */
+
+        analysisSection.style.display =
+            "block";
+
+        result.textContent =
+            convertPuterResponseToText(
+                analysis
+            );
+
+        status.textContent =
+            "Analysis complete. " +
+            totalPages +
+            " PDF page(s) processed.";
+
+        status.className =
+            "success";
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "PDF analysis error:",
+            error
+        );
+
+        status.textContent =
+            "Error: " +
+            error.message;
+
+        status.className =
+            "error";
+
+        result.textContent =
+            "Error details:\n\n" +
+            error.message;
+
+        analysisSection.style.display =
+            "block";
+
+    }
+
+    finally {
+
+        analyzeButton.disabled =
+            false;
+
+    }
+
+}
+
+);
+
+/* ============================================================
+EXTRACT REMARK → C/M
+============================================================ */
+
+function extractRemarkToCM(
+text
+) {
+
+/*
+ * Normalize whitespace so that PDF extraction such as:
+ *
+ * REMARK
+ * (B/L Handling)
+ *
+ * can still be found.
+ */
+
+const normalized =
+    text
+        .replace(/\u00A0/g, " ")
+        .replace(/\s+/g, " ")
+        .trim();
+
+/* ========================================================
+   START MARKER
+   ======================================================== */
+
+const startRegex =
+    /REMARK\s*\(\s*B\s*\/\s*L\s*Handling\s*\)/i;
+
+const startMatch =
+    normalized.match(
+        startRegex
+    );
+
+if (!startMatch) {
+
+    throw new Error(
+        'Could not find "REMARK (B/L Handling)" in the PDF.\n\n' +
+
+        'Possible reasons:\n' +
+
+        '1. The PDF uses different wording.\n' +
+
+        '2. The PDF is scanned/image-based.\n' +
+
+        '3. Text extraction has changed the formatting.'
+    );
+
+}
+
+const startIndex =
+    startMatch.index;
+
+/* ========================================================
+   END MARKER
+   ======================================================== */
+
+const afterStart =
+    startIndex +
+    startMatch[0].length;
+
+const remainingText =
+    normalized.substring(
+        afterStart
+    );
+
+const endRegex =
+    /C\s*\/\s*M\s*\(\s*Container\s*Manifest\s*\)/i;
+
+const endMatch =
+    remainingText.match(
+        endRegex
+    );
+
+if (!endMatch) {
+
+    throw new Error(
+        'Found "REMARK (B/L Handling)" but could not find ' +
+        '"C/M (Container Manifest)" after it.'
+    );
+
+}
+
+const endIndex =
+    afterStart +
+    endMatch.index +
+    endMatch[0].length;
+
+/* ========================================================
+   RETURN ONLY REQUESTED SECTION
+   ======================================================== */
+
+const extracted =
+    normalized.substring(
+        startIndex,
+        endIndex
+    );
+
+if (!extracted.trim()) {
+
+    throw new Error(
+        "The REMARK → C/M section is empty."
+    );
+
+}
+
+return extracted;
+
+}
+
+/* ============================================================
+PUTER AI ANALYSIS
+============================================================ */
+
+async function analyzeWithPuter(
+remarkSection
+) {
+
+const prompt = `
+
+You are an expert in shipping documentation,
+Bill of Lading (B/L) handling,
+container documentation,
+shipping operations,
+and Container Manifest (C/M) requirements.
+
+I have extracted ONLY the following section
+from a shipping-related PDF.
+
+Do NOT analyze information outside this section.
+
+============================================================
+EXTRACTED SECTION
+${remarkSection}
+
+============================================================
+END OF EXTRACTED SECTION
+Analyze this section in detail.
+
+============================================================
+
+EXECUTIVE SUMMARY
+============================================================
+
+Explain the overall meaning of this section
+in clear business/operational language.
+
+============================================================
+2. REMARK-BY-REMARK ANALYSIS
+Identify each separate remark or instruction.
+
+For every remark explain:
+
+Exact requirement
+
+Practical meaning
+
+Required action
+
+Responsible party, if identifiable
+
+Relevant document/system
+
+Timing/deadline, if stated
+
+Consequence of not following it
+
+============================================================
+3. B/L HANDLING ANALYSIS
+Analyze all Bill of Lading related requirements.
+
+Look specifically for:
+
+B/L preparation
+
+B/L submission
+
+B/L amendment
+
+B/L release
+
+Original B/L
+
+Copy B/L
+
+Draft B/L
+
+Shipper
+
+Consignee
+
+Notify party
+
+Cargo description
+
+Port of loading
+
+Port of discharge
+
+Place of receipt
+
+Place of delivery
+
+Freight terms
+
+Payment terms
+
+Special clauses
+
+Documentation requirements
+
+============================================================
+4. CONTAINER MANIFEST / C/M ANALYSIS
+Analyze all Container Manifest requirements.
+
+Look for:
+
+Container number
+
+Container type
+
+Seal number
+
+Package quantity
+
+Cargo description
+
+Gross weight
+
+Net weight
+
+Measurement
+
+Port information
+
+Vessel
+
+Voyage
+
+ETA
+
+ETD
+
+Manifest submission
+
+Manifest amendment
+
+Cut-off
+
+Customs requirements
+
+Terminal requirements
+
+============================================================
+5. DATES AND DEADLINES
+Extract every date, time, cutoff,
+deadline or time-sensitive instruction.
+
+For each one explain:
+
+Date/time
+
+What it relates to
+
+Required action
+
+Potential consequence of missing it
+
+============================================================
+6. REQUIRED DATA / DOCUMENTS
+Create a structured checklist of everything
+that must be prepared, checked, submitted,
+amended or confirmed.
+
+============================================================
+7. OPERATIONAL RISKS
+Identify potential risks related to:
+
+B/L mismatch
+
+Manifest mismatch
+
+Container information mismatch
+
+Incorrect cargo description
+
+Weight discrepancy
+
+Seal discrepancy
+
+Documentation delay
+
+Customs issues
+
+Port/terminal issues
+
+Cargo release problems
+
+Additional charges
+
+Operational delays
+
+IMPORTANT:
+
+Do not say that a risk definitely exists unless
+the extracted text supports it.
+
+Clearly distinguish:
+
+FACT:
+Something explicitly stated.
+
+INTERPRETATION:
+What the requirement appears to mean.
+
+POTENTIAL RISK:
+What could happen if the requirement is not met.
+
+============================================================
+8. EXCEPTIONS / SPECIAL INSTRUCTIONS
+Identify unusual, conditional or special
+instructions.
+
+============================================================
+9. ACTION CHECKLIST
+Create a practical checklist.
+
+Use this format:
+
+[ ] Action
+[ ] Action
+[ ] Action
+
+Group actions into:
+
+A. B/L
+B. Container
+C. Manifest
+D. Documentation
+E. Deadline / Cut-off
+F. Verification
+
+============================================================
+10. ITEMS REQUIRING CLARIFICATION
+Identify ambiguous, incomplete or potentially
+conflicting instructions.
+
+For each one explain what should be confirmed.
+
+============================================================
+11. DETAILED PLAIN-ENGLISH EXPLANATION
+Explain the entire extracted section as if
+you were explaining it to an operations executive
+who is familiar with shipping but has not seen
+this particular document.
+
+============================================================
+12. MANAGEMENT SUMMARY
+Finish with:
+
+Most important requirement
+
+Most time-sensitive requirement
+
+Most important B/L issue
+
+Most important C/M issue
+
+Main operational risk
+
+Immediate action required
+
+IMPORTANT RULES:
+
+Analyze ONLY the supplied REMARK → C/M section.
+
+Do not use information from other PDF pages.
+
+Do not invent information.
+
+Preserve dates, numbers, container numbers,
+references and other identifiers exactly.
+
+If something is not specified, say:
+"Not specified in the extracted section."
+
+If a statement is ambiguous, say so.
+
+Do not assume responsibility for a party
+unless the document indicates it.
+
+Be detailed but practical.
+
+`;
+
+const response =
+    await puter.ai.chat(
+        prompt
+    );
+
+return response;
+
+}
+
+/* ============================================================
+PUTER RESPONSE HANDLER
+============================================================ */
+
+function convertPuterResponseToText(
+response
+) {
+
+if (
+    typeof response === "string"
+) {
+
+    return response;
+
+}
+
+/*
+ * Puter AI responses can be returned
+ * in different object structures.
+ */
+
+if (
+    response &&
+    response.message &&
+    typeof response.message === "string"
+) {
+
+    return response.message;
+
+}
+
+if (
+    response &&
+    response.message &&
+    response.message.content
+) {
+
+    return response.message.content;
+
+}
+
+if (
+    response &&
+    response.content
+) {
+
+    return response.content;
+
+}
+
+return JSON.stringify(
+    response,
+    null,
+    2
+);
+
+}
+
+/* ============================================================
+END
+============================================================ */
+
+</script> </body> </html>
